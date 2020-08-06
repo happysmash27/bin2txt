@@ -1,5 +1,7 @@
 # bin2txt
-Software to convert text to and from binary, written as a string of 1s and 0s. 
+Software to convert text to and from binary, written as a string of 1s and 0s.
+
+To compile, simply run `make`, and the bin2txt and txt2bin binaries will be generated. 
 
 To use bin2txt, pipe a series of 1s and 0s in, or just type them. Currently, it assumes each character is 8 bits.
 

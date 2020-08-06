@@ -28,5 +28,7 @@ int main(){
 	putchar('0');
       }
     }
+    putchar(' ');
   }
+  putchar('\n');
 }

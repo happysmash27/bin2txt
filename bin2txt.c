@@ -89,5 +89,12 @@ int main(){
     /*If the character is neither a 1 or a 0, don't
       do anything and wait for the next character*/
   }
-  
+
+  /*Quick fix for the bug where if EOF is given immediately
+    after the end of the 8 bits representing a character,
+    that last character is not printed*/
+  //May use a different solution later
+  if (outloc>7){
+    putchar(outc);
+  }
 }

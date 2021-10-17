@@ -22,23 +22,31 @@ int main(){
      //int because that's what getc gives
      int inc;
      
-     int intprintnum = 0;
      char innums[3] = {0};
      //char innum;
-     char innumloc = 0;
-     char max_num_size = 3;
+     char innumloc = -1;
      
      while ((inc = getc(stdin)) != EOF){
 	  if (inc>=48 && inc<=57){
-	       char innum = inc-48;
-	       if (innumloc == 0){
-		    //This annoying format I am reading can be anywhere between 1 to 3 digits
-		    //Should an even more insane format come along with no spaces, automatically...
-		    if (innum>2){
-			 max_num_size = 2;
-		    } else {
-			 max_num_size = 3;
+	       innumloc++;
+	       if (innumloc>2){
+		    if (innums[0] > 2 || innumloc>3){
+			 fprintf(stderr, "Error: Input number is too large to fit in an 8-bit integer\n");
+			 return 1;
 		    }
 	       }
-	       innums[numloc] = inc;
-	       numloc++;
+	       char innum = inc-48;
+	       innums[innumloc] = innum;
+	  } else {
+	       if (innumloc==2){
+		    fputc(innums[0]*100+innums[1]*10+innums[2], stdout);
+	       } else if (innumloc==1){
+		    fputc(innums[0]*10+innums[1], stdout);
+	       } else if (innumloc == 0){
+		    fputc(innums[0], stdout);
+	       }
+	       innumloc = -1;
+	  }
+     }
+     return 0;
+}

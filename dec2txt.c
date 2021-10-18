@@ -33,12 +33,13 @@ int main(){
 	       //Make sure we don't print our error over and over again if the number keeps going on, by stopping incrementing at 4 and only outputting if is 3 (which is 1 higher than the max supported)
 	       if (innumloc<4){
 		    innumloc++;
-	       }
-	       if (innumloc==3){
-		    fprintf(stderr, "Error: Number of digits in input number is too large to fit in an 8-bit integer\n");
-	       } else {
-		    unsigned char innum = inc-'0';
-		    innums[innumloc] = innum;
+		    if (innumloc<3){
+			 if (innumloc>=0){
+			      innums[innumloc] = inc-'0';
+			 }
+		    } else {
+			 fprintf(stderr, "Error: Number of digits in input number is too large to fit in an 8-bit integer\n");
+		    }
 	       }
 	  } else {
 	       if (innumloc==2){

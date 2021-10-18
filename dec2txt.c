@@ -25,8 +25,7 @@ int main(){
      int inc;
      
      unsigned char innums[3] = {0};
-     //char innum;
-     int innumloc = -1;
+     signed char innumloc = -1;
 
      size_t input_number = 0;
      

@@ -37,14 +37,14 @@ int main(){
 		    if (innumloc<3 && innumloc>=0){
 			 innums[innumloc] = inc-'0';
 		    } else if (innumloc == 3){
-			 fprintf(stderr, "Error: Number of digits in input %lu number is too large to fit in an 8-bit integer\n", input_number);
+			 fprintf(stderr, "Error: Number of digits in input number %lu is too large to fit in an 8-bit integer\n", input_number);
 		    }
 	       }
 	  } else {
 	       if (innumloc==2){
 		    uint16_t outnum = innums[0]*100+innums[1]*10+innums[2];
 		    if (outnum>UCHAR_MAX){
-			 fprintf(stderr, "Error: Input number larger than 8-bit maximum of 255\n");
+		      fprintf(stderr, "Error: Input number %lu larger than 8-bit maximum of 255\n", input_number);
 		    } else {
 			 fputc((unsigned char)outnum, stdout);
 		    }

@@ -16,30 +16,38 @@
 */
 
 #include <stdio.h>
+#include <stdint.h>
+#include <limits.h>
 
 int main(){
      //Input Character
      //int because that's what getc gives
      int inc;
      
-     char innums[3] = {0};
+     unsigned char innums[3] = {0};
      //char innum;
-     char innumloc = -1;
+     int innumloc = -1;
      
      while ((inc = getc(stdin)) != EOF){
-	  if (inc>=48 && inc<=57){
-	       innumloc++;
-	       if (innumloc>2){
-		    if (innums[0] > 2 || innumloc>3){
-			 fprintf(stderr, "Error: Input number is too large to fit in an 8-bit integer\n");
-			 return 1;
-		    }
+	  if (inc>='0' && inc<='9'){
+	       //Make sure we don't print our error over and over again if the number keeps going on, by stopping incrementing at 4 and only outputting if is 3 (which is 1 higher than the max supported)
+	       if (innumloc<4){
+		    innumloc++;
 	       }
-	       char innum = inc-48;
-	       innums[innumloc] = innum;
+	       if (innumloc==3){
+		    fprintf(stderr, "Error: Number of digits in input number is too large to fit in an 8-bit integer\n");
+	       } else {
+		    unsigned char innum = inc-'0';
+		    innums[innumloc] = innum;
+	       }
 	  } else {
 	       if (innumloc==2){
-		    fputc(innums[0]*100+innums[1]*10+innums[2], stdout);
+		    uint16_t outnum = innums[0]*100+innums[1]*10+innums[2];
+		    if (outnum>UCHAR_MAX){
+			 fprintf(stderr, "Error: Input number larger than 8-bit maximum of 255\n");
+		    } else {
+			 fputc((unsigned char)outnum, stdout);
+		    }
 	       } else if (innumloc==1){
 		    fputc(innums[0]*10+innums[1], stdout);
 	       } else if (innumloc == 0){

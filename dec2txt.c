@@ -36,7 +36,7 @@ int main(){
 	       if (innumloc<4){
 		    innumloc++;
 		    if (innumloc<3 && innumloc>=0){
-			      innums[innumloc] = inc-'0';
+			 innums[innumloc] = inc-'0';
 		    } else if (innumloc == 3){
 			 fprintf(stderr, "Error: Number of digits in input %lu number is too large to fit in an 8-bit integer\n", input_number);
 		    }

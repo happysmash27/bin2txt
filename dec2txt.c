@@ -27,18 +27,18 @@ int main(){
      unsigned char innums[3] = {0};
      //char innum;
      int innumloc = -1;
+
+     size_t input_number = 0;
      
      while ((inc = getc(stdin)) != EOF){
 	  if (inc>='0' && inc<='9'){
 	       //Make sure we don't print our error over and over again if the number keeps going on, by stopping incrementing at 4 and only outputting if is 3 (which is 1 higher than the max supported)
 	       if (innumloc<4){
 		    innumloc++;
-		    if (innumloc<3){
-			 if (innumloc>=0){
+		    if (innumloc<3 && innumloc>=0){
 			      innums[innumloc] = inc-'0';
-			 }
-		    } else {
-			 fprintf(stderr, "Error: Number of digits in input number is too large to fit in an 8-bit integer\n");
+		    } else if (innumloc == 3){
+			 fprintf(stderr, "Error: Number of digits in input %lu number is too large to fit in an 8-bit integer\n", input_number);
 		    }
 	       }
 	  } else {
@@ -53,6 +53,9 @@ int main(){
 		    fputc(innums[0]*10+innums[1], stdout);
 	       } else if (innumloc == 0){
 		    fputc(innums[0], stdout);
+	       }
+	       if (innumloc>-1){
+		    input_number++;
 	       }
 	       innumloc = -1;
 	  }
